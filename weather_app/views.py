@@ -33,25 +33,25 @@ class WeatherView(views.APIView):
         number_of_days = request.GET.get('days')
 
         #the url of our API
-        url = 'http://api.weatherapi.com/v1/forecast.json?key=b16d544814374b3aa5d03948210107&q='+ city +'&days='+ str(number_of_days) +'&aqi=no'   
+        url = 'http://api.weatherapi.com/v1/forecast.json?key=b16d544814374b3aa5d03948210107&q='+ city +'&days='+ str(number_of_days) +'&aqi=no&alerts=no'   
 
         #request the API data and convert the JSON to Python data types
         city_weather = requests.get(url).json()
 
         #get the content of forecastday dictionnary
         data =  city_weather['forecast']['forecastday']
-
+        
         #create a list to store data for comparison and calculation
         temperature_max_per_day = []
         temperature_min_per_day = []
         temperature_per_hour = []   
         
-        for i in range(0, int(number_of_days)):
+        for i in range(1, int(number_of_days)):
             temperature_max_per_day.append(data[i].get('day').get('maxtemp_c'))
             temperature_min_per_day.append(data[i].get('day').get('mintemp_c'))
 
             for j in range(0,24):
-                temperature_per_hour.append((data[i].get('hour'))[j].get('temp_c'))
+                temperature_per_hour.append((data[i].get('hour'))[j].get('temp_c'))        
 
         weather = {
             'maximum' : max(temperature_max_per_day),
