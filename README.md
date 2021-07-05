@@ -25,10 +25,10 @@ Go to the_weather_api folder and activate the virtual environment
 source .env/bin/activate
 
 ```
-Run the server
+Run the server locally by typing
 
 ```bash
-python manage.py runserver
+python manage.py runserver --insecure
 
 ```
 Then go to your browser
